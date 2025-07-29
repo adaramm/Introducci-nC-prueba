@@ -1,1 +1,47 @@
 
+autograding:
+  - name: Compila correctamente
+    run: g++ -std=c++17 -o main main.cpp
+    timeout: 10
+    points: 2
+    setup: ''
+    input: ''
+    expected_output: ''
+    comparison: exact
+    visibility: visible
+
+  - name: Caso 1 - Suma básica
+    run: ./main
+    timeout: 5
+    points: 2
+    input: "2 3\n"
+    expected_output: "5\n"
+    comparison: exact
+    visibility: visible
+
+  - name: Caso 2 - Suma con negativos
+    run: ./main
+    timeout: 5
+    points: 2
+    input: "-5 7\n"
+    expected_output: "2\n"
+    comparison: exact
+    visibility: visible
+
+  - name: Caso 3 - Ceros
+    run: ./main
+    timeout: 5
+    points: 2
+    input: "0 0\n"
+    expected_output: "0\n"
+    comparison: exact
+    visibility: visible
+
+  - name: Caso 4 - Números grandes
+    run: ./main
+    timeout: 5
+    points: 2
+    input: "123456 654321\n"
+    expected_output: "777777\n"
+    comparison: exact
+    visibility: visible
