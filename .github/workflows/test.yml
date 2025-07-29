@@ -1,47 +1,19 @@
+name: Build and Test
 
-autograding:
-  - name: Compila correctamente
-    run: g++ -std=c++17 -o main main.cpp
-    timeout: 10
-    points: 2
-    setup: ''
-    input: ''
-    expected_output: ''
-    comparison: exact
-    visibility: visible
+on: [push, pull_request]
 
-  - name: Caso 1 - Suma básica
-    run: ./main
-    timeout: 5
-    points: 2
-    input: "2 3\n"
-    expected_output: "5\n"
-    comparison: exact
-    visibility: visible
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
 
-  - name: Caso 2 - Suma con negativos
-    run: ./main
-    timeout: 5
-    points: 2
-    input: "-5 7\n"
-    expected_output: "2\n"
-    comparison: exact
-    visibility: visible
+    - name: Instalar dependencias
+      run: sudo apt update && sudo apt install -y g++ make
 
-  - name: Caso 3 - Ceros
-    run: ./main
-    timeout: 5
-    points: 2
-    input: "0 0\n"
-    expected_output: "0\n"
-    comparison: exact
-    visibility: visible
-
-  - name: Caso 4 - Números grandes
-    run: ./main
-    timeout: 5
-    points: 2
-    input: "123456 654321\n"
-    expected_output: "777777\n"
-    comparison: exact
-    visibility: visible
+    - name: Compilar y probar
+      run: |
+        wget https://github.com/catchorg/Catch2/releases/download/v3.5.3/catch_amalgamated.hpp
+        mkdir build
+        g++ -std=c++17 test/test_solution.cpp -o build/tests
+        ./build/tests
